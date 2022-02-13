@@ -1,0 +1,17 @@
+[package]
+name = "handler"
+version = "0.1.0"
+authors = ["Neil Kaushikkar <neil.kaushikkar@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+warp = "0.3"
+tokio = { version = "1", features = ["rt", "macros", "rt-multi-thread"] }
+base64 = "0.13.0"
+serde_json = "1.0.59"
+serde = { version = "1.0", features = ["derive"] }
+log = "0.4.14"
+pretty_env_logger = "0.4.0"
+octocrab = "0.15"
