@@ -10,10 +10,8 @@ mod models;
 ///
 /// API will be:
 ///
-/// - `GET /todos`: return a JSON list of Todos.
-/// - `POST /todos`: create a new Todo.
-/// - `PUT /todos/:id`: update a specific Todo.
-/// - `DELETE /todos/:id`: delete a specific Todo.
+/// - `GET /`: serve HTML homepage
+/// - `POST /api/grant`: grant extentions to students
 #[tokio::main]
 async fn main() {
     if env::var_os("RUST_LOG").is_none() {
