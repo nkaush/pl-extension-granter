@@ -17,7 +17,7 @@ async fn main() {
     if env::var_os("RUST_LOG").is_none() {
         // Set `RUST_LOG=extension-granter=debug` to see debug logs,
         // this only shows access logs.
-        env::set_var("RUST_LOG", "extension-granter=info");
+        env::set_var("RUST_LOG", "extension-granter=debug");
     }
     pretty_env_logger::init();
 

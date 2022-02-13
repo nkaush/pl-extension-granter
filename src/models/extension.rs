@@ -2,10 +2,8 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct Extension {
-    netids: Vec<String>,
-    month: u8,
-    day: u8,
-    year: u16,
+    netids: String,
+    date: String,
     assignment: String,
     repo_name: String,
     semester: String,
@@ -22,11 +20,15 @@ impl Extension {
     }
 
     pub fn format_date(&self) -> String {
-        format!("{:04}-{:02}-{:02}T23:59:59", self.year, self.month, self.day)
+        format!("{}T23:59:59", self.date)
     }
 
-    pub fn get_netids(&self) -> &Vec<String> {
-        &self.netids
+    pub fn get_netids(&self) -> Vec<String> {
+        self.netids
+            .split(',')
+            .into_iter()
+            .map(|s| s.trim().to_string())
+            .collect()
     }
 
     pub fn get_info_assessment_path(&self) -> String {

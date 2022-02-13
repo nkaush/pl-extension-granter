@@ -1,8 +1,22 @@
 use super::models::{Extension, AssessmentInfoFile, PLCommit};
 use std::convert::Infallible;
+use serde_json::{Value, Map};
 use warp::http::StatusCode;
+use handlebars::Handlebars;
+
+pub async fn home() -> Result<impl warp::Reply, Infallible> {
+    let mut handlebars = Handlebars::new();
+    handlebars.register_template_file("index-template", "templates/index.html").unwrap();
+
+    let parsed: Value = serde_json::from_str("{}").unwrap();
+    let obj: Map<String, Value> = parsed.as_object().unwrap().clone();
+    let body: String = handlebars.render("index-template", &obj).unwrap();
+
+    Ok(warp::reply::with_status(warp::reply::html(body), StatusCode::OK))
+}
 
 pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallible> {
+    println!("{:?}", add);
     let repo_owner: String = "PrairieLearn".into();
 
     let mut assessment_info = match AssessmentInfoFile::get(
@@ -29,8 +43,12 @@ pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallibl
         "neil.kaushikkar@gmail.com".into()
     );
 
-    match commit.make(add.get_github_token().clone()).await {
-        Ok(_) => Ok(StatusCode::CREATED),
-        Err(_) => Ok(StatusCode::FORBIDDEN)
-    }
+    println!("{}", assessment_info.get_content());
+
+    // match commit.make(add.get_github_token().clone()).await {
+    //     Ok(_) => Ok(StatusCode::CREATED),
+    //     Err(_) => Ok(StatusCode::FORBIDDEN)
+    // }
+
+    Ok(StatusCode::CREATED)
 }
