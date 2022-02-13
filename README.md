@@ -1,1 +1,1 @@
-# azure-functions
+# pl-extension-granter

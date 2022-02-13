@@ -1,12 +1,5 @@
-# deployment config file
-build-scripts/login-details.txt
-
-# Azure Functions artifacts
-bin
-obj
-appsettings.json
-local.settings.json
-
 # Added by cargo
 /target
 handler
+
+.vscode/

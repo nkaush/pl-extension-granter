@@ -1,10 +1,9 @@
 use std::net::Ipv4Addr;
-use std::env;
 use warp::Filter;
+use std::env;
 
 mod handlers;
 mod filters;
-mod models_tmp;
 mod models;
 
 /// Provides a RESTful web server managing some Todos.
@@ -20,20 +19,18 @@ async fn main() {
     if env::var_os("RUST_LOG").is_none() {
         // Set `RUST_LOG=todos=debug` to see debug logs,
         // this only shows access logs.
-        env::set_var("RUST_LOG", "todos=info");
+        env::set_var("RUST_LOG", "extension-granter=info");
     }
     pretty_env_logger::init();
 
-    let db = models_tmp::blank_db();
-
-    let api = filters::todos(db);
+    let api = filters::all();
 
     // View access logs by setting `RUST_LOG=todos`.
-    let routes = api.with(warp::log("todos"));
+    let routes = api.with(warp::log("extension-granter"));
     // Start up the server...
-    let port_key = "FUNCTIONS_CUSTOMHANDLER_PORT";
+    let port_key = "PORT";
     let port: u16 = match env::var(port_key) {
-        Ok(val) => val.parse().expect("Custom Handler port is not a number!"),
+        Ok(val) => val.parse().expect("PORT is not a number!"),
         Err(_) => 3000,
     };
 

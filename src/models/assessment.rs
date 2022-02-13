@@ -1,6 +1,7 @@
 use octocrab::{Octocrab, models::repos::ContentItems};
 use serde_json::{Value, Map, to_string_pretty};
 use serde::{Deserialize, Serialize};
+use super::extension::*;
 
 fn parse_json(content: &String) -> Result<Map<String, Value>, ()> {
     match serde_json::from_str(&content) {
@@ -14,24 +15,8 @@ fn parse_json(content: &String) -> Result<Map<String, Value>, ()> {
     };
 }
 
-struct AssessmentDueDate {
-    month: u8,
-    day: u8,
-    year: u16
-}
-
-impl AssessmentDueDate {
-    fn new(day: u8, month: u8, year: u16) -> AssessmentDueDate {
-        AssessmentDueDate { month, day, year }
-    }
-
-    fn format(&self) -> String {
-        format!("{:04}-{:02}-{:02}T23:59:59", self.year, self.month, self.day)
-    }
-}
-
 #[derive(Debug, Serialize, Deserialize)]
-struct AssignmentAvailability {
+pub struct AssignmentAvailability {
     #[serde(skip_serializing_if = "Option::is_none")]
     uids: Option<Vec<String>>,
     credit: usize,
@@ -41,13 +26,21 @@ struct AssignmentAvailability {
     end_date: String
 }
 
-struct AssessmentInfoFile {
+pub struct AssessmentInfoFile {
     content: String,
     sha: String
 }
 
 impl AssessmentInfoFile {
-    async fn get(owner: &str, repo: &str, path: &str) -> Result<Self, ()> {
+    pub fn get_sha(&self) -> &String {
+        &self.sha
+    }
+
+    pub fn get_content(&self) -> &String {
+        &self.content
+    }
+
+    pub async fn get(owner: &str, repo: &str, path: &str) -> Result<Self, ()> {
         let token = std::env::var("GITHUB_TOKEN")
             .expect("GITHUB_TOKEN env variable is required");
         
@@ -83,7 +76,7 @@ impl AssessmentInfoFile {
         })
     }
 
-    fn grant_extensions(&mut self, netids: Vec<String>, due_date: AssessmentDueDate) {
+    pub fn grant_extensions(&mut self, extensions: &Extension) {
         let mut map = parse_json(&self.content).unwrap();
 
         let mut availability: Vec<AssignmentAvailability> = map
@@ -108,9 +101,9 @@ impl AssessmentInfoFile {
             })
             .collect::<Vec<AssignmentAvailability>>();
     
-        for id in netids.into_iter() {
+        for id in extensions.get_netids().into_iter() {
             let start_date = availability.get(0).unwrap().start_date.clone();
-            let target_date = due_date.format();
+            let target_date = extensions.format_date();
             let mut did_update: bool = false;
             let mut contains_student: bool = false;
             let target_email: String = format!("{}@illinois.edu", id);
