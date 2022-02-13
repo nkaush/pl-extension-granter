@@ -17,7 +17,7 @@ mod models;
 #[tokio::main]
 async fn main() {
     if env::var_os("RUST_LOG").is_none() {
-        // Set `RUST_LOG=todos=debug` to see debug logs,
+        // Set `RUST_LOG=extension-granter=debug` to see debug logs,
         // this only shows access logs.
         env::set_var("RUST_LOG", "extension-granter=info");
     }
@@ -25,7 +25,7 @@ async fn main() {
 
     let api = filters::all();
 
-    // View access logs by setting `RUST_LOG=todos`.
+    // View access logs by setting `RUST_LOG=extension-granter`.
     let routes = api.with(warp::log("extension-granter"));
     // Start up the server...
     let port_key = "PORT";

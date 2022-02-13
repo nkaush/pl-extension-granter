@@ -40,12 +40,9 @@ impl AssessmentInfoFile {
         &self.content
     }
 
-    pub async fn get(owner: &str, repo: &str, path: &str) -> Result<Self, ()> {
-        let token = std::env::var("GITHUB_TOKEN")
-            .expect("GITHUB_TOKEN env variable is required");
-        
+    pub async fn get(owner: &String, repo: &String, path: &String, github_token: &String) -> Result<Self, ()> {        
         let request = Octocrab::builder()
-            .personal_token(token).build().unwrap()
+            .personal_token(github_token.clone()).build().unwrap()
             .repos(owner, repo)
             .get_content()
             .path(path)

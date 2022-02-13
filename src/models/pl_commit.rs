@@ -5,7 +5,7 @@ use octocrab::Octocrab;
 pub struct PLCommit {
     repo: String,
     owner: String,
-    path: String,
+    filepath: String,
     sha: String, 
     new_content: String,
     message: String, 
@@ -17,7 +17,7 @@ impl PLCommit {
     pub fn new(
         repo: String,
         owner: String,
-        path: String,
+        filepath: String,
         sha: String, 
         new_content: String,
         message: String, 
@@ -27,7 +27,7 @@ impl PLCommit {
         PLCommit {
             repo,
             owner,
-            path,
+            filepath,
             sha,
             new_content,
             message,
@@ -36,15 +36,12 @@ impl PLCommit {
         }
     }
 
-    pub async fn make(&self) -> Result<FileUpdate, octocrab::Error> {
-        let token = std::env::var("GITHUB_TOKEN")
-            .expect("GITHUB_TOKEN env variable is required");
-
+    pub async fn make(&self, github_token: String) -> Result<FileUpdate, octocrab::Error> {
         Ok(Octocrab::builder()
-            .personal_token(token).build().unwrap()
+            .personal_token(github_token).build().unwrap()
             .repos(&self.owner, &self.repo)
             .update_file(
-                &self.path,
+                &self.filepath,
                 &self.message,
                 &self.new_content,
                 &self.sha

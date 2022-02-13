@@ -2,7 +2,7 @@ use super::models::Extension;
 use super::handlers;
 use warp::Filter;
 
-/// The 4 TODOs filters combined.
+/// All filters combined
 pub fn all() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     grant_extensions()
         // .or(function)
