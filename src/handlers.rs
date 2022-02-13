@@ -43,12 +43,8 @@ pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallibl
         "neil.kaushikkar@gmail.com".into()
     );
 
-    println!("{}", assessment_info.get_content());
-
-    // match commit.make(add.get_github_token().clone()).await {
-    //     Ok(_) => Ok(StatusCode::CREATED),
-    //     Err(_) => Ok(StatusCode::FORBIDDEN)
-    // }
-
-    Ok(StatusCode::CREATED)
+    match commit.make(add.get_github_token().clone()).await {
+        Ok(_) => Ok(StatusCode::CREATED),
+        Err(_) => Ok(StatusCode::FORBIDDEN)
+    }
 }
