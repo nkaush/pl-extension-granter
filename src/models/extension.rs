@@ -7,7 +7,7 @@ pub struct Extension {
     assignment: String,
     repo_name: String,
     semester: String,
-    github_token: String
+    github_token: String,
 }
 
 impl Extension {
@@ -19,6 +19,10 @@ impl Extension {
         &self.github_token
     }
 
+    pub fn get_assignment(&self) -> &String {
+        &self.assignment
+    }
+
     pub fn format_date(&self) -> String {
         format!("{}T23:59:59", self.date)
     }
@@ -26,12 +30,22 @@ impl Extension {
     pub fn get_netids(&self) -> Vec<String> {
         self.netids
             .split(',')
-            .into_iter()
             .map(|s| s.trim().to_string())
             .collect()
     }
 
+    pub fn format_netids(&self) -> String {
+        self.netids
+            .split(',')
+            .map(|s| s.trim().to_string())
+            .collect::<Vec<String>>()
+            .join(", ")
+    }
+
     pub fn get_info_assessment_path(&self) -> String {
-        format!("courseInstances/{}/assessments/{}/infoAssessment.json", self.semester, self.assignment)
+        format!(
+            "courseInstances/{}/assessments/{}/infoAssessment.json",
+            self.semester, self.assignment
+        )
     }
 }

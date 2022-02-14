@@ -1,4 +1,4 @@
-use octocrab::models::repos::{GitUser, FileUpdate};
+use octocrab::models::repos::{FileUpdate, GitUser};
 use octocrab::Octocrab;
 
 #[derive(Debug)]
@@ -6,11 +6,11 @@ pub struct PLCommit {
     repo: String,
     owner: String,
     filepath: String,
-    sha: String, 
+    sha: String,
     new_content: String,
-    message: String, 
+    message: String,
     name: String,
-    email: String
+    email: String,
 }
 
 impl PLCommit {
@@ -18,12 +18,12 @@ impl PLCommit {
         repo: String,
         owner: String,
         filepath: String,
-        sha: String, 
+        sha: String,
         new_content: String,
-        message: String, 
+        message: String,
         name: String,
-        email: String
-    ) -> Self { 
+        email: String,
+    ) -> Self {
         PLCommit {
             repo,
             owner,
@@ -32,20 +32,17 @@ impl PLCommit {
             new_content,
             message,
             name,
-            email
+            email,
         }
     }
 
     pub async fn make(&self, github_token: String) -> Result<FileUpdate, octocrab::Error> {
         Ok(Octocrab::builder()
-            .personal_token(github_token).build().unwrap()
+            .personal_token(github_token)
+            .build()
+            .unwrap()
             .repos(&self.owner, &self.repo)
-            .update_file(
-                &self.filepath,
-                &self.message,
-                &self.new_content,
-                &self.sha
-            )
+            .update_file(&self.filepath, &self.message, &self.new_content, &self.sha)
             .branch("master")
             .commiter(GitUser {
                 name: self.name.clone(),
@@ -56,7 +53,6 @@ impl PLCommit {
                 email: self.email.clone(),
             })
             .send()
-            .await?
-        )
+            .await?)
     }
 }

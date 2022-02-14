@@ -1,5 +1,5 @@
-use super::models::Extension;
 use super::handlers;
+use super::models::Extension;
 use warp::Filter;
 
 /// All filters combined
@@ -12,8 +12,7 @@ pub fn all() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection>
 
 /// GET /
 pub fn home() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
-    warp::path::end()
-        .and(warp::fs::file("templates/index.html"))
+    warp::path::end().and(warp::fs::file("templates/index.html"))
 }
 
 /// GET /static/
@@ -27,7 +26,8 @@ pub fn favicon() -> impl Filter<Extract = impl warp::Reply, Error = warp::Reject
 }
 
 /// POST /api/grant with JSON body
-pub fn grant_extensions() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+pub fn grant_extensions() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone
+{
     warp::path!("api" / "grant")
         .and(warp::post())
         .and(json_body())

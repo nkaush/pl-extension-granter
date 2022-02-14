@@ -1,9 +1,9 @@
+use std::env;
 use std::net::Ipv4Addr;
 use warp::Filter;
-use std::env;
 
-mod handlers;
 mod filters;
+mod handlers;
 mod models;
 
 /// Provides a RESTful web server managing some Todos.
