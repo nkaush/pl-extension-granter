@@ -7,16 +7,23 @@ pub fn all() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection>
     home()
         .or(serve_static())
         .or(grant_extensions())
+        .or(favicon())
 }
 
-// GET /
+/// GET /
 pub fn home() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path::end()
         .and(warp::fs::file("templates/index.html"))
 }
-// GET /static/
+
+/// GET /static/
 pub fn serve_static() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
     warp::path("static").and(warp::fs::dir("www/static"))
+}
+
+/// GET /favicon.ico
+pub fn favicon() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
+    warp::path("favicon.ico").and(warp::fs::file("www/static/favicon.png"))
 }
 
 /// POST /api/grant with JSON body

@@ -16,7 +16,6 @@ pub async fn home() -> Result<impl warp::Reply, Infallible> {
 }
 
 pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallible> {
-    println!("{:?}", add);
     let repo_owner: String = "PrairieLearn".into();
 
     let mut assessment_info = match AssessmentInfoFile::get(
