@@ -93,8 +93,8 @@ impl AssessmentInfoFile {
                 AssignmentAvailability {
                     uids,
                     credit: x.get("credit").unwrap().as_u64().unwrap(),
-                    start_date: serde_json::to_string(&x.get("startDate")).unwrap(),
-                    end_date: serde_json::to_string(&x.get("endDate")).unwrap(),
+                    start_date: serde_json::from_value(x.get("startDate").unwrap().clone()).unwrap(),
+                    end_date: serde_json::from_value(x.get("endDate").unwrap().clone()).unwrap()
                 }
             })
             .collect::<Vec<AssignmentAvailability>>();
