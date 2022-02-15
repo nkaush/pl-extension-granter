@@ -17,7 +17,6 @@
             <h5 class="card-title">PL Extension Granter</h5>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <p class="card-text">When you are finished entering NetIDs, make sure to sync the respective PrairieLearn with GitHub. Follow the link to your class' PrairieLearn and click the <code>Pull from remote git repository</code> button.</p>
-            <p class="card-text" id="message"></p>
 
             <div class="container">
                 <div class="row">
@@ -98,6 +97,8 @@
                                         <div class="invalid-feedback">Please confirm that the data you entered is all correct!</div>
                                     </div>
 
+                                    <p class="card-text mv-up" id="message"></p>
+
                                     <div class="container">
                                         <div class="row">
                                             <div class="col text-center">
@@ -147,11 +148,15 @@
                 },
                 "body": JSON.stringify(data)
             })
-            .then(response => {
-                console.log(response);
+            .then(function(response) {
+                response.json().then((data) => {
+                    console.log(data);
+                    document.getElementById('message').innerHTML = data.message;
+                });
             })
             .catch(err => {
                 console.error(err);
+                document.getElementById('message').innerHTML = err;
             });
             return false;
         }

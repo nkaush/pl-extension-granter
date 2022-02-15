@@ -73,29 +73,40 @@ pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallibl
         "neil.kaushikkar@gmail.com".into(),
     );
 
-    match commit.make(add.get_github_token().clone()).await {
-        Ok(_) => {
-            let message: String = format!(
-                "Successfully granted extension on {} to {} at {}",
-                add.get_assignment(),
-                add.format_netids(),
-                chrono::Utc::now()
-            );
-            return Ok(warp::reply::with_status(
-                warp::reply::json(&ExtensionResponse::new(message)),
-                StatusCode::CREATED,
-            ));
-        }
-        Err(_) => {
-            let message: String = format!(
-                "Could not access file {} in GitHub repository {}!",
-                add.get_info_assessment_path(),
-                add.get_repo_name()
-            );
-            return Ok(warp::reply::with_status(
-                warp::reply::json(&ExtensionResponse::new(message)),
-                StatusCode::FORBIDDEN,
-            ));
-        }
-    }
+    let message: String = format!(
+        "Successfully granted extension on {} to {} at {}",
+        add.get_assignment(),
+        add.format_netids(),
+        chrono::Utc::now()
+    );
+    return Ok(warp::reply::with_status(
+        warp::reply::json(&ExtensionResponse::new(message)),
+        StatusCode::CREATED,
+    ));
+
+    // match commit.make(add.get_github_token().clone()).await {
+    //     Ok(_) => {
+    //         let message: String = format!(
+    //             "Successfully granted extension on {} to {} at {}",
+    //             add.get_assignment(),
+    //             add.format_netids(),
+    //             chrono::Utc::now()
+    //         );
+    //         return Ok(warp::reply::with_status(
+    //             warp::reply::json(&ExtensionResponse::new(message)),
+    //             StatusCode::CREATED,
+    //         ));
+    //     }
+    //     Err(_) => {
+    //         let message: String = format!(
+    //             "Could not access file {} in GitHub repository {}!",
+    //             add.get_info_assessment_path(),
+    //             add.get_repo_name()
+    //         );
+    //         return Ok(warp::reply::with_status(
+    //             warp::reply::json(&ExtensionResponse::new(message)),
+    //             StatusCode::FORBIDDEN,
+    //         ));
+    //     }
+    // }
 }
