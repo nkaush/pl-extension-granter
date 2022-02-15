@@ -107,7 +107,7 @@ impl AssessmentInfoFile {
             let target_email: String = format!("{}@illinois.edu", id);
 
             for aa in availability.iter_mut() {
-                if aa.uids.is_some() {
+                if aa.uids.is_some() { 
                     contains_student |= aa.uids.as_ref().unwrap().contains(&target_email);
 
                     if contains_student {
