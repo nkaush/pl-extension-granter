@@ -34,9 +34,9 @@
                     <div class="form-content">
                         <div class="form-items">
                             <br>
-                            <p>Enter NetIDs separated by commas (spaces will be ignored).</p>
                                 <form class="requires-validation" id="extensionform" method="POST" onsubmit="return check();" novalidate>
                                     <div class="col-md-12">
+                                        <label for="netids">Enter NetIDs separated by commas (spaces are ignored):</label>
                                         <input class="form-control" id="netids" type="text" name="netids" placeholder="Comma-separated NetIDs" required>
                                         <div class="valid-feedback">NetIDs field is valid!</div>
                                         <div class="invalid-feedback">NetIDs field cannot be blank!</div>
@@ -57,6 +57,14 @@
                                         <input class="form-control duedate" type="date" id="duedate" name="duedate" min="2022-01-01" required>
                                         <div class="valid-feedback">Due date field is valid!</div>
                                         <div class="invalid-feedback">Due date field cannot be blank!</div>
+                                    </div>
+                                   
+                                    <br>
+                                    <div class="col-md-12">
+                                        <label for="exttime">Enter the due time for the extension:</label>
+                                        <input type="time" id="exttime" name="exttime" value="23:59:59" step="1" required>                                        
+                                        <div class="valid-feedback">Due time field is valid!</div>
+                                        <div class="invalid-feedback">Due time field cannot be blank!</div>
                                     </div>
                                     
                                     <br>
@@ -132,6 +140,7 @@
             const data = {
                 'netids' : document.getElementById('netids').value,
                 'date': document.getElementById('duedate').value,
+                'time': document.getElementById('exttime').value,
                 'assignment': document.getElementById('assignment').value,
                 'repo_name': repo_name,
                 'semester': document.getElementById('semester').value,

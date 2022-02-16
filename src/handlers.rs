@@ -16,22 +16,6 @@ impl ExtensionResponse {
     }
 }
 
-pub async fn home() -> Result<impl warp::Reply, Infallible> {
-    let mut handlebars = Handlebars::new();
-    handlebars
-        .register_template_file("index-template", "templates/index.html")
-        .unwrap();
-
-    let parsed: Value = serde_json::from_str("{}").unwrap();
-    let obj: Map<String, Value> = parsed.as_object().unwrap().clone();
-    let body: String = handlebars.render("index-template", &obj).unwrap();
-
-    Ok(warp::reply::with_status(
-        warp::reply::html(body),
-        StatusCode::OK,
-    ))
-}
-
 pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallible> {
     let repo_owner: String = "PrairieLearn".into();
 

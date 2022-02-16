@@ -4,6 +4,7 @@ use serde::{Deserialize, Serialize};
 pub struct Extension {
     netids: String,
     date: String,
+    time: String,
     assignment: String,
     repo_name: String,
     semester: String,
@@ -24,7 +25,7 @@ impl Extension {
     }
 
     pub fn format_date(&self) -> String {
-        format!("{}T23:59:59", self.date)
+        format!("{}T{}", self.date, self.time)
     }
 
     pub fn get_netids(&self) -> Vec<String> {
