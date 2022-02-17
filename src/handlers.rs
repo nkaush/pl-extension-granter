@@ -1,7 +1,5 @@
 use super::models::{AssessmentInfoFile, Extension, PLCommit};
-use handlebars::Handlebars;
 use serde::Serialize;
-use serde_json::{Map, Value};
 use std::convert::Infallible;
 use warp::http::StatusCode;
 

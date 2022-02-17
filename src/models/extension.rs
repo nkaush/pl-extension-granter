@@ -12,6 +12,26 @@ pub struct Extension {
 }
 
 impl Extension {
+    pub fn new(
+        netids: String,
+        date: String,
+        time: String,
+        assignment: String,
+        repo_name: String,
+        semester: String,
+        github_token: String,
+    ) -> Self {
+        Self {
+            netids,
+            date,
+            time,
+            assignment,
+            repo_name,
+            semester,
+            github_token,
+        }
+    }
+
     pub fn get_repo_name(&self) -> &String {
         &self.repo_name
     }
