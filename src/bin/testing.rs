@@ -13,6 +13,7 @@ async fn main() {
         "pl-cs19628".into(),
         "SP22".into(),
         env::var("GITHUB_TOKEN").unwrap(),
+        50
     );
 
     let res = block_on(AssessmentInfoFile::get(

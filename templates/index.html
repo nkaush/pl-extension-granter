@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
   </head>
   <body>
-    <div class="card mx-auto mt-5" style="width: 32rem;">
+    <div class="card mx-auto mt-3 mb-3" style="width: 32rem;">
         <div class="card-body">
             <h5 class="card-title">PL Extension Granter</h5>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
@@ -66,8 +66,17 @@
                                         <div class="valid-feedback">Due time field is valid!</div>
                                         <div class="invalid-feedback">Due time field cannot be blank!</div>
                                     </div>
-                                    
+
                                     <br>
+                                    <div class="col-md-12">
+                                        <label for="exttime">Enter the max credit for the extension:</label>
+                                        <input type="number" id="creditfield" placeholder="credit" step="10" min="0" max="100" value="100" required>
+                                        <div class="valid-feedback">Credit field is valid!</div>
+                                        <div class="invalid-feedback">Credit field cannot be blank!</div>
+                                    </div>
+
+                                    
+                                    <!-- <br>
                                     <div class="col-md-12">
                                         <label for="semeterselect">Select the current semester:</label>
                                         <select class="form-select" id="semester" required>
@@ -75,7 +84,7 @@
                                         </select>
                                             <div class="valid-feedback">You selected a a semester!</div>
                                             <div class="invalid-feedback">Please select a semester!</div>
-                                    </div>
+                                    </div> -->
 
                                     <br>
 
@@ -143,8 +152,9 @@
                 'time': document.getElementById('exttime').value,
                 'assignment': document.getElementById('assignment').value,
                 'repo_name': repo_name,
-                'semester': document.getElementById('semester').value,
+                'semester': "SP22",
                 'github_token': document.getElementById('github_token').value,
+                'credit': document.getElementById('creditfield').value
             };
 
             console.log(data);

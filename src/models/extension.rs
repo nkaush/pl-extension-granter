@@ -9,6 +9,7 @@ pub struct Extension {
     repo_name: String,
     semester: String,
     github_token: String,
+    credit: u64
 }
 
 impl Extension {
@@ -20,6 +21,7 @@ impl Extension {
         repo_name: String,
         semester: String,
         github_token: String,
+        credit: u64
     ) -> Self {
         Self {
             netids,
@@ -29,6 +31,7 @@ impl Extension {
             repo_name,
             semester,
             github_token,
+            credit
         }
     }
 
@@ -42,6 +45,10 @@ impl Extension {
 
     pub fn get_assignment(&self) -> &String {
         &self.assignment
+    }
+
+    pub fn get_credit(&self) -> u64 {
+        self.credit
     }
 
     pub fn format_date(&self) -> String {

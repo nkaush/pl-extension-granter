@@ -102,6 +102,7 @@ impl AssessmentInfoFile {
             .collect::<Vec<AssignmentAvailability>>();
 
         let date_format: &str = "%Y-%m-%dT%H:%M:%S";
+        let target_date = extensions.format_date();
         let start_date: String = availability
             .iter()
             .map(|a| NaiveDateTime::parse_from_str(&a.start_date, date_format).unwrap())
@@ -110,9 +111,6 @@ impl AssessmentInfoFile {
             .format(date_format)
             .to_string();
 
-        let target_date = extensions.format_date();
-
-        // TODO: add credit field
         for id in extensions.get_netids().into_iter() {
             let mut did_update: bool = false;
             let mut contains_student: bool = false;
@@ -133,7 +131,8 @@ impl AssessmentInfoFile {
                     }
                 }
 
-                if aa.end_date == target_date {
+                if aa.end_date == target_date 
+                        && aa.credit == extensions.get_credit() {
                     did_update = true;
 
                     if aa.uids.is_none() {
@@ -146,7 +145,7 @@ impl AssessmentInfoFile {
 
             if !did_update && !contains_student {
                 availability.push(AssignmentAvailability {
-                    credit: 100,
+                    credit: extensions.get_credit(),
                     uids: Some(vec![target_email]),
                     start_date: start_date.clone(),
                     end_date: target_date.clone(),
