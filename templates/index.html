@@ -4,7 +4,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/style.css">
@@ -17,7 +16,6 @@
             <h5 class="card-title">PL Extension Granter</h5>
             <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
             <p class="card-text">When you are finished entering NetIDs, make sure to sync the respective PrairieLearn with GitHub. Follow the link to your class' PrairieLearn and click the <code>Pull from remote git repository</code> button.</p>
-
             <div class="container">
                 <div class="row">
                     <div class="col text-center">
@@ -74,20 +72,7 @@
                                         <div class="valid-feedback">Credit field is valid!</div>
                                         <div class="invalid-feedback">Credit field cannot be blank!</div>
                                     </div>
-
-                                    
-                                    <!-- <br>
-                                    <div class="col-md-12">
-                                        <label for="semeterselect">Select the current semester:</label>
-                                        <select class="form-select" id="semester" required>
-                                            <option selected value="SP22">SP22</option>
-                                        </select>
-                                            <div class="valid-feedback">You selected a a semester!</div>
-                                            <div class="invalid-feedback">Please select a semester!</div>
-                                    </div> -->
-
                                     <br>
-
                                     <div class="col-md-12">
                                         <label for="duedate">Enter your GitHub Auth Token (<a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank" rel="noopener noreferrer">Create a token here</a>):</label>
                                         <input class="form-control" id="github_token" type="github_token" name="github_token" placeholder="GitHub Auth Token" required>
@@ -134,58 +119,12 @@
         </div>
     </div>
     <script>
-        function check(event) {
-            const url = "/api/grant";
-            var cs124 = document.getElementById('CS124H');
-            var cs128 = document.getElementById('CS128H');
-            
-            var repo_name;
-            if (cs128.checked) {
-                repo_name = 'pl-cs19628';
-            } else {
-                repo_name = 'pl-cs124h';
-            }
-
-            const data = {
-                'netids' : document.getElementById('netids').value,
-                'date': document.getElementById('duedate').value,
-                'time': document.getElementById('exttime').value,
-                'assignment': document.getElementById('assignment').value,
-                'repo_name': repo_name,
-                'semester': "SP22",
-                'github_token': document.getElementById('github_token').value,
-                'credit': parseInt(document.getElementById('creditfield').value)
-            };
-
-            console.log(data);
-
-            fetch("/api/grant", {
-                "method": "POST",
-                "mode" : "cors",
-                "headers": {
-                    "Content-Type": "application/json; charset=UTF-8"
-                },
-                "body": JSON.stringify(data)
-            })
-            .then(function(response) {
-                response.json().then((data) => {
-                    console.log(data);
-                    document.getElementById('message').innerHTML = data.message;
-                });
-            })
-            .catch(err => {
-                console.error(err);
-                document.getElementById('message').innerHTML = err;
-            });
-            return false;
-        }
-    </script>
-    <script>
         var form = document.getElementById("extensionform");
         function handleForm(event) { event.preventDefault(); } 
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
     <script src="/static/script.js"></script>
+    <script src="/static/grant.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -63,11 +63,7 @@ impl Extension {
     }
 
     pub fn format_netids(&self) -> String {
-        self.netids
-            .split(',')
-            .map(|s| s.trim().to_string())
-            .collect::<Vec<String>>()
-            .join(", ")
+        self.get_netids().join(", ")
     }
 
     pub fn get_info_assessment_path(&self) -> String {

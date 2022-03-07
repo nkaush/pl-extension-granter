@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{to_string_pretty, Map, Value};
 
 fn parse_json(content: &String) -> Result<Map<String, Value>, ()> {
-    match serde_json::from_str(&content) {
+    match serde_json::from_str(content) {
         Ok::<Value, serde_json::Error>(p) => match p.as_object() {
             Some(m) => return Ok(m.clone()),
             None => return Err(()),
