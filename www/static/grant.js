@@ -16,7 +16,7 @@ function check(event) {
         'time': document.getElementById('exttime').value,
         'assignment': document.getElementById('assignment').value,
         'repo_name': repo_name,
-        'semester': "SP22",
+        'semester': "FA22",
         'github_token': document.getElementById('github_token').value,
         'credit': parseInt(document.getElementById('creditfield').value)
     };
