@@ -17,6 +17,7 @@ function check(event) {
         'assignment': document.getElementById('assignment').value,
         'repo_name': repo_name,
         'semester': "FA22",
+        'github_email': document.getElementById('github_email').value,
         'github_token': document.getElementById('github_token').value,
         'credit': parseInt(document.getElementById('creditfield').value)
     };

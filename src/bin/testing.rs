@@ -12,6 +12,7 @@ async fn main() {
         "MP0".into(),
         "pl-cs19628".into(),
         "SP22".into(),
+        env::var("GITHUB_EMAIL").unwrap(),
         env::var("GITHUB_TOKEN").unwrap(),
         50
     );

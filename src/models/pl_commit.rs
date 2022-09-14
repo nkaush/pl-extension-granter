@@ -37,6 +37,11 @@ impl PLCommit {
     }
 
     pub async fn make(&self, github_token: String) -> Result<FileUpdate, octocrab::Error> {
+        let git_user = GitUser {
+            name: self.name.clone(),
+            email: self.email.clone(),
+        };
+        
         Ok(Octocrab::builder()
             .personal_token(github_token)
             .build()
@@ -44,14 +49,8 @@ impl PLCommit {
             .repos(&self.owner, &self.repo)
             .update_file(&self.filepath, &self.message, &self.new_content, &self.sha)
             .branch("master")
-            .commiter(GitUser {
-                name: self.name.clone(),
-                email: self.email.clone(),
-            })
-            .author(GitUser {
-                name: self.name.clone(),
-                email: self.email.clone(),
-            })
+            .commiter(git_user.clone())
+            .author(git_user)
             .send()
             .await?)
     }

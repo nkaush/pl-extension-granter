@@ -8,6 +8,7 @@ pub struct Extension {
     assignment: String,
     repo_name: String,
     semester: String,
+    github_email: String,
     github_token: String,
     credit: u64
 }
@@ -20,6 +21,7 @@ impl Extension {
         assignment: String,
         repo_name: String,
         semester: String,
+        github_email: String,
         github_token: String,
         credit: u64
     ) -> Self {
@@ -30,6 +32,7 @@ impl Extension {
             assignment,
             repo_name,
             semester,
+            github_email,
             github_token,
             credit
         }
@@ -37,6 +40,10 @@ impl Extension {
 
     pub fn get_repo_name(&self) -> &String {
         &self.repo_name
+    }
+
+    pub fn get_github_email(&self) -> &String {
+        &self.github_email
     }
 
     pub fn get_github_token(&self) -> &String {

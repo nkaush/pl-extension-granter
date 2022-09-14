@@ -51,8 +51,8 @@ pub async fn add_extension(add: Extension) -> Result<impl warp::Reply, Infallibl
             add.format_netids(),
             chrono::Utc::now()
         ),
-        "Neil Kaushikkar".into(),
-        "neil.kaushikkar@gmail.com".into(),
+        add.get_github_email().clone(),
+        add.get_github_email().clone()
     );
 
     match commit.make(add.get_github_token().clone()).await {
